@@ -14,6 +14,7 @@ export const Header: React.FC<Props> = () => {
           <div className="menu">
             <nav className="menu-content">
               <Link href="/posts">Posts</Link>
+              <Link href="/hello">Hello, MDX</Link>
             </nav>
           </div>
         </h3>
