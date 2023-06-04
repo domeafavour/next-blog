@@ -16,7 +16,11 @@ export const Post: React.FC<Props> = ({ post }) => {
       </h1>
       <div className="thumbnail-container">
         <a href={post.url}>
-          <img src={post.image} alt={post.title} />
+          <img
+            src={post.image}
+            alt={post.title}
+            style={{ aspectRatio: '16/10', objectFit: 'cover' }}
+          />
         </a>
       </div>
       <p>
