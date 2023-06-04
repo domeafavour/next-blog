@@ -1,6 +1,7 @@
-import styles from '@/styles/Home.module.css';
 import Head from 'next/head';
 import React from 'react';
+import { Footer } from './Footer';
+import { Header } from './Header';
 
 interface Props extends React.PropsWithChildren<{}> {
   subTitle?: string;
@@ -19,7 +20,11 @@ export const BasicLayout: React.FC<Props> = ({ subTitle, children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>{children}</main>
+      <main className="container">
+        <Header />
+        <div className="container-content">{children}</div>
+        <Footer />
+      </main>
     </>
   );
 };
