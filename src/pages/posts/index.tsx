@@ -1,10 +1,11 @@
 import { BasicLayout } from '@/components';
-import { getPostFiles } from '@/utils/posts';
+import { PostInfo } from '@/typings';
+import { getPostFiles, getPostInfos } from '@/utils/posts';
 import Link from 'next/link';
 import React from 'react';
 
 interface Props {
-  posts: string[];
+  posts: PostInfo[];
 }
 
 export type { Props as PostsProps };
@@ -12,7 +13,7 @@ export type { Props as PostsProps };
 export async function getStaticProps() {
   return {
     props: {
-      posts: getPostFiles(),
+      posts: await getPostInfos(),
     },
   };
 }
@@ -22,12 +23,9 @@ export const Posts: React.FC<Props> = ({ posts }) => {
     <BasicLayout subTitle="Posts">
       <ul>
         {posts.map((post) => {
-          const id = post.split('.')[0];
           return (
-            <li key={post}>
-              <Link key={post} href={`/posts/${id}`}>
-                {id}
-              </Link>
+            <li key={post.id}>
+              <Link href={`/posts/${post.id}`}>{post.title ?? post.id}</Link>
             </li>
           );
         })}

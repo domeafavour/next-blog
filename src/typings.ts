@@ -1,21 +1,15 @@
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 
-export interface PostEntity {
+export type PostInfo = {
   id: string;
-  url: string;
-  title: string;
-  content: string;
-  image: string;
-  date: string;
-}
-
-export type PostFrontMatter = {
   title?: string;
+  dateTime?: string;
   layout?: string;
+  image?: string;
 };
 
 export type StaticPost = {
-  frontMatter: PostFrontMatter;
+  frontMatter: PostInfo;
   slug: string;
   mdxSource: MDXRemoteSerializeResult<
     Record<string, unknown>,
