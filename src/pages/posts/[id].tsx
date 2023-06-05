@@ -12,7 +12,7 @@ export type { Props as PostDetailProps };
 
 export const getStaticPaths = async () => {
   return {
-    paths: getPostFiles().map((filename) => `/posts/${filename.split('.')[0]}`),
+    paths: getPostFiles().map((filename) => `/posts/${filename}`),
     fallback: true,
   };
 };
