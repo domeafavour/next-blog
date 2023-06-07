@@ -15,6 +15,7 @@ export const Header: React.FC<Props> = () => {
             <nav className="menu-content">
               <Link href="/posts">Posts</Link>
               <Link href="/about">About</Link>
+              <Link href="/contacts">Contacts</Link>
             </nav>
           </div>
         </h3>
