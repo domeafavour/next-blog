@@ -1,5 +1,4 @@
-import withMDX from '@next/mdx';
-import remarkFrontMatter from 'remark-frontmatter';
+const withMDX = require('@next/mdx');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,9 +7,9 @@ const nextConfig = {
   basePath: '/next-blog',
 };
 
-export default withMDX({
+module.exports = withMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [remarkFrontMatter],
+    remarkPlugins: [],
   },
 })(nextConfig);
