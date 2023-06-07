@@ -1,10 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  pageExtensions: ['md', 'mdx', 'ts', 'tsx', 'js', 'jsx'],
   reactStrictMode: true,
   basePath: '/next-blog',
-  experimental: {
-    mdxRs: true,
-  },
 };
 
 const withMDX = require('@next/mdx')();
