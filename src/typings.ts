@@ -3,7 +3,7 @@ import { MDXRemoteSerializeResult } from "next-mdx-remote";
 export type PostInfo = {
   id: string;
   title?: string;
-  dateTime?: string;
+  date?: string;
   layout?: string;
   image?: string;
 };

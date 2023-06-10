@@ -36,7 +36,7 @@ export const PostDetail: React.FC<Props> = ({ post }) => {
 
   return (
     <Layout>
-      <small>{post.frontMatter.dateTime}</small>
+      <small>{post.frontMatter.date}</small>
       <MDXRemote {...post.mdxSource} />
     </Layout>
   );
