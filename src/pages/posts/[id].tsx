@@ -1,4 +1,4 @@
-import layouts from '@/layout';
+import { BasicLayout } from '@/components';
 import { StaticPost } from '@/typings';
 import { getPostFiles, getStaticPost } from '@/utils/posts';
 import { MDXRemote } from 'next-mdx-remote';
@@ -30,15 +30,11 @@ export const PostDetail: React.FC<Props> = ({ post }) => {
     return null;
   }
 
-  const Layout = post.frontMatter.layout
-    ? layouts[post.frontMatter.layout as keyof typeof layouts]
-    : 'div';
-
   return (
-    <Layout>
+    <BasicLayout subTitle={post.frontMatter.title}>
       <small>{post.frontMatter.date}</small>
       <MDXRemote {...post.mdxSource} />
-    </Layout>
+    </BasicLayout>
   );
 };
 
