@@ -1,6 +1,6 @@
 import { BasicLayout } from '@/components';
 import { PostInfo } from '@/typings';
-import { getPostFiles, getPostInfos } from '@/utils/posts';
+import { getPostInfos } from '@/utils/posts';
 import Link from 'next/link';
 import React from 'react';
 
@@ -10,10 +10,19 @@ interface Props {
 
 export type { Props as PostsProps };
 
+function parseDate(date?: string) {
+  return Date.parse(date ?? Date.now().toString());
+}
+
 export async function getStaticProps() {
+  const posts = await getPostInfos();
+  const sorted = posts
+    .slice()
+    .sort((a, b) => parseDate(b.date) - parseDate(a.date));
+
   return {
     props: {
-      posts: await getPostInfos(),
+      posts: sorted,
     },
   };
 }
