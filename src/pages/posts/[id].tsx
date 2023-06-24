@@ -32,6 +32,7 @@ export const PostDetail: React.FC<Props> = ({ post }) => {
 
   return (
     <BasicLayout subTitle={post.frontMatter.title}>
+      <h2>{post.frontMatter.title}</h2>
       <small>{post.frontMatter.date}</small>
       <MDXRemote {...post.mdxSource} />
     </BasicLayout>
