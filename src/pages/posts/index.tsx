@@ -1,7 +1,8 @@
 import { BasicLayout } from "@/components";
+import { PostListItem } from "@/components/PostListItem";
+import { PostListWrapper } from "@/components/PostListWrapper";
 import { PostInfo } from "@/typings";
-import { getPostInfos } from "@/utils/posts";
-import Link from "next/link";
+import { getSortedPosts } from "@/utils/posts";
 import React from "react";
 
 interface Props {
@@ -10,15 +11,8 @@ interface Props {
 
 export type { Props as PostsProps };
 
-function parseDate(date?: string) {
-  return Date.parse(date ?? Date.now().toString());
-}
-
 export async function getStaticProps() {
-  const posts = await getPostInfos();
-  const sorted = posts
-    .slice()
-    .sort((a, b) => parseDate(b.date) - parseDate(a.date));
+  const sorted = await getSortedPosts();
 
   return {
     props: {
@@ -30,31 +24,16 @@ export async function getStaticProps() {
 export const Posts: React.FC<Props> = ({ posts }) => {
   return (
     <BasicLayout subTitle="Posts">
-      <ul style={{ padding: "0 0 0 1em" }}>
-        {posts.map((post) => {
-          return (
-            <li key={post.id}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  borderBottom: "1px dashed #ddd",
-                }}
-              >
-                <Link
-                  href={`/posts/${post.id}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  {post.title ?? post.id}
-                </Link>
-                <small style={{ color: "#666" }}>{post.date}</small>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      <PostListWrapper>
+        {posts.map((post) => (
+          <PostListItem
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            date={post.date}
+          />
+        ))}
+      </PostListWrapper>
     </BasicLayout>
   );
 };
