@@ -1,8 +1,8 @@
-import { BasicLayout } from '@/components';
-import { PostInfo } from '@/typings';
-import { getPostInfos } from '@/utils/posts';
-import Link from 'next/link';
-import React from 'react';
+import { BasicLayout } from "@/components";
+import { PostInfo } from "@/typings";
+import { getPostInfos } from "@/utils/posts";
+import Link from "next/link";
+import React from "react";
 
 interface Props {
   posts: PostInfo[];
@@ -30,11 +30,27 @@ export async function getStaticProps() {
 export const Posts: React.FC<Props> = ({ posts }) => {
   return (
     <BasicLayout subTitle="Posts">
-      <ul>
+      <ul style={{ padding: "0 0 0 1em" }}>
         {posts.map((post) => {
           return (
             <li key={post.id}>
-              <Link href={`/posts/${post.id}`}>{post.title ?? post.id}</Link>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  borderBottom: "1px dashed #ddd",
+                }}
+              >
+                <Link
+                  href={`/posts/${post.id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  {post.title ?? post.id}
+                </Link>
+                <small style={{ color: "#666" }}>{post.date}</small>
+              </div>
             </li>
           );
         })}
