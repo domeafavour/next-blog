@@ -19,6 +19,15 @@ export async function getPostInfos(): Promise<PostInfo[]> {
   );
 }
 
+function parseDate(date?: string) {
+  return Date.parse(date ?? Date.now().toString());
+}
+
+export async function getSortedPosts() {
+  const posts = await getPostInfos();
+  return posts.slice().sort((a, b) => parseDate(b.date) - parseDate(a.date));
+}
+
 // 2023-06-08-hello-world.mdx
 // { date: '2023-06-08', slug: 'hello-world' }
 const dateFileNamePattern = /^(?<date>\d+-\d+-\d+)-?(?<slug>.+)\.mdx?$/;
