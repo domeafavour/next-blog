@@ -1,5 +1,6 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import React from "react";
+import { NavLink } from "./NavLink";
 
 interface Props {}
 
@@ -13,8 +14,8 @@ export const Header: React.FC<Props> = () => {
           <Link href="/">Welcome</Link>
           <div className="menu">
             <nav className="menu-content">
-              <Link href="/posts">Posts</Link>
-              <Link href="/notes">Notes</Link>
+              <NavLink href="/posts">Posts</NavLink>
+              <NavLink href="/notes">Notes</NavLink>
             </nav>
           </div>
         </h3>
