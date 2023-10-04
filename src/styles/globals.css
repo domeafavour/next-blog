@@ -146,7 +146,8 @@ pre.highlight {
   margin-bottom: 2rem;
   font-family: 'Quattrocento Sans', sans-serif;
 }
-.header a:hover {
+.header a:hover,
+.header a.active {
   color: black;
 }
 .header-title a {
