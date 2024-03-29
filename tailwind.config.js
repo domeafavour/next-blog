@@ -1,8 +1,22 @@
+const plugin = require('tailwindcss/plugin');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.tsx'],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addComponents }) {
+      addComponents({
+        '.content': {
+          width: '615px',
+          margin: '0 auto',
+          '@media (max-width: 768px)': {
+            width: '90vw',
+          },
+        },
+      });
+    }),
+  ],
 };
