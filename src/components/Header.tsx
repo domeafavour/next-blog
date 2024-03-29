@@ -1,6 +1,6 @@
-import Link from "next/link";
-import React from "react";
-import { NavLink } from "./NavLink";
+import React from 'react';
+import { HomeLink } from './HomeLink';
+import { MenuLink } from './MenuLink';
 
 interface Props {}
 
@@ -9,13 +9,13 @@ export type { Props as HeaderProps };
 export const Header: React.FC<Props> = () => {
   return (
     <div className="container">
-      <header className="header">
-        <h3 className="header-title">
-          <Link href="/">Welcome</Link>
-          <div className="menu">
-            <nav className="menu-content">
-              <NavLink href="/posts">Posts</NavLink>
-              <NavLink href="/notes">Notes</NavLink>
+      <header className="py-2 mb-8">
+        <h3>
+          <HomeLink>Welcome</HomeLink>
+          <div className="pt-2 block">
+            <nav className="float-start">
+              <MenuLink href="/posts">Posts</MenuLink>
+              <MenuLink href="/notes">Notes</MenuLink>
             </nav>
           </div>
         </h3>

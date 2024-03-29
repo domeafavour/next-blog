@@ -1,3 +1,6 @@
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 body {
   font-family: 'PT Serif', Georgia, 'Times New Roman', serif;
   font-size: 18px;
@@ -102,60 +105,4 @@ pre {
   .container {
     width: 90vw;
   }
-}
-.header {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  margin-bottom: 2rem;
-  font-family: 'Quattrocento Sans', sans-serif;
-}
-.header a:hover,
-.header a.active {
-  color: black;
-}
-.header-title a {
-  font-size: 2rem;
-  text-decoration: none;
-  color: #505050;
-}
-.header-subtitle {
-  color: #999;
-}
-.menu {
-  padding-top: 0.5rem;
-  display: block;
-}
-.menu-content {
-  float: left;
-}
-.menu-content a {
-  color: #999;
-  font-size: 1rem;
-  padding-right: 10px;
-}
-@media (max-width: 30em) {
-  .menu-content {
-    margin-bottom: 5px;
-  }
-}
-.footer {
-  color: #999;
-  text-align: center;
-  margin: 2rem;
-}
-.footer a {
-  color: #999;
-  padding: 10px;
-  text-decoration: none;
-}
-.footer a:hover {
-  color: #333;
-}
-.footer-description {
-  display: block;
-  margin-top: 3px;
-  margin-bottom: 1rem;
-  color: #999;
-  font-family: 'Quattrocento Sans', sans-serif;
-  font-size: 0.8rem;
 }
