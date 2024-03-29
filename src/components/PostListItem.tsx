@@ -1,5 +1,5 @@
-import Link from "next/link";
-import React from "react";
+import Link from 'next/link';
+import React from 'react';
 
 type Props = {
   id: string;
@@ -13,23 +13,15 @@ export const PostListItem = React.forwardRef<HTMLLIElement | null, Props>(
   ({ id, title, date }, ref) => {
     return (
       <li ref={ref}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderBottom: "1px dashed #ddd",
-          }}
-        >
-          <Link href={`/posts/${id}`} style={{ textDecoration: "none" }}>
+        <div className="flex flex-row justify-between items-center border-t-0 border-l-0 border-r-0 border-b border-dashed border-gray-300">
+          <Link href={`/posts/${id}`} className="no-underline">
             {title ?? id}
           </Link>
-          <small style={{ color: "#666" }}>{date}</small>
+          <small className="text-gray-600">{date}</small>
         </div>
       </li>
     );
   }
 );
 
-PostListItem.displayName = "PostListItem";
+PostListItem.displayName = 'PostListItem';
