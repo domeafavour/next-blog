@@ -19,8 +19,8 @@ export async function getPostInfos(): Promise<PostInfo[]> {
   );
 }
 
-function parseDate(date?: string) {
-  return Date.parse(date ?? Date.now().toString());
+function parseDate(date?: number) {
+  return date ?? Date.now();
 }
 
 export async function getSortedPosts() {
@@ -63,6 +63,7 @@ export async function getStaticPost(fileName: string) {
         layout: 'post',
         ...baseInfo,
         ...frontMatter,
+        date: baseInfo?.date ? Date.parse(baseInfo.date) : Date.now(),
       },
       id: fileName,
     },
