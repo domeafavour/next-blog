@@ -1,4 +1,4 @@
-import { PostInfo } from "@/typings";
+import { PostInfo } from '@/typings';
 
 export function groupByYearMonth(posts: PostInfo[]) {
   const state = {
@@ -23,4 +23,8 @@ export function groupByYearMonth(posts: PostInfo[]) {
 
 export function toLocaleDateString(date: number) {
   return new Date(date).toLocaleDateString();
+}
+
+export function getPostPath(id: string) {
+  return `/posts/${id}`;
 }
