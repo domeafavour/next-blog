@@ -3,6 +3,7 @@ import { Code } from '@/components/Code';
 import { Flex } from '@/components/Flex';
 import { PostButton } from '@/components/PostButton';
 import { PostInfo, StaticPost } from '@/typings';
+import { toLocaleDateString } from '@/utils/client';
 import { getPostFiles, getSortedPosts, getStaticPost } from '@/utils/posts';
 import { MDXRemote } from 'next-mdx-remote';
 import Link from 'next/link';
@@ -52,7 +53,7 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
     <BasicLayout subTitle={post.frontMatter.title}>
       <h2>{post.frontMatter.title}</h2>
       <small className="text-slate-400 underline">
-        {post.frontMatter.date}
+        {toLocaleDateString(post.frontMatter.date!)}
       </small>
       <MDXRemote
         {...post.mdxSource}

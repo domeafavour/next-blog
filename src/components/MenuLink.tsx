@@ -13,15 +13,12 @@ export function MenuLink({
   return (
     <Link
       href={href}
-      className={classNames(
-        'hover:text-black text-gray-500',
-        'text-lg hover:underline',
-        {
-          'text-black': matched,
-          underline: matched,
-          'no-underline': !matched,
-        }
-      )}
+      className={classNames('hover:text-black', 'text-lg hover:underline', {
+        'text-black': matched,
+        'text-gray-500': !matched,
+        underline: matched,
+        'no-underline': !matched,
+      })}
     >
       {children}
     </Link>
