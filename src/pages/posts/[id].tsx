@@ -1,7 +1,7 @@
 import { BasicLayout } from '@/components';
 import { Code } from '@/components/Code';
 import { PostInfo, StaticPost } from '@/typings';
-import { getPostPath, toLocaleDateString } from '@/utils/client';
+import { getPostPath, makeDateStringOrUnknown } from '@/utils/client';
 import { getPostFiles, getSortedPosts, getStaticPost } from '@/utils/posts';
 import { MDXRemote } from 'next-mdx-remote';
 import React from 'react';
@@ -47,7 +47,7 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
     <BasicLayout subTitle={post.frontMatter.title}>
       <h2>{post.frontMatter.title}</h2>
       <small className="text-slate-400 underline">
-        {toLocaleDateString(post.frontMatter.date!)}
+        {makeDateStringOrUnknown(post.frontMatter.date!)}
       </small>
       <MDXRemote
         {...post.mdxSource}
