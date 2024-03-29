@@ -2,7 +2,7 @@
 @import 'tailwindcss/utilities';
 
 body {
-  @apply font-serif text-xl text-gray-500 leading-7;
+  @apply font-serif text-gray-500 leading-7 m-0;
 }
 @media (max-width: 30em) {
   body {
@@ -59,15 +59,4 @@ code {
 }
 pre {
   @apply block mt-0 mb-4 p-4 text-xs bg-gray-100 rounded-md whitespace-pre-wrap break-words;
-}
-.container {
-  @apply m-auto w-[615px];
-}
-.content-container {
-  @apply mb-16;
-}
-@media (max-width: 768px) {
-  .container {
-    width: 90vw;
-  }
 }

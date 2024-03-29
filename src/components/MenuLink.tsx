@@ -8,7 +8,7 @@ export function MenuLink({
   return (
     <Link
       href={href}
-      className="hover:text-black text-gray-500 text-lg pe-2 no-underline hover:underline"
+      className="hover:text-black text-gray-500 text-lg no-underline hover:underline"
     >
       {children}
     </Link>
