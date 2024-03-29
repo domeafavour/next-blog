@@ -2,7 +2,11 @@ import { BasicLayout } from '@/components';
 import { PostListItem } from '@/components/PostListItem';
 import { PostListWrapper } from '@/components/PostListWrapper';
 import { PostInfo } from '@/typings';
-import { groupByYearMonth, toLocaleDateString } from '@/utils/client';
+import {
+  groupByYearMonth,
+  makeDateStringOrUnknown,
+  makeYearMonthStringOrUnknown,
+} from '@/utils/client';
 import { getSortedPosts } from '@/utils/posts';
 import React from 'react';
 
@@ -31,14 +35,14 @@ export const Posts: React.FC<Props> = ({ posts }) => {
         {yearMonthIds.map((yearMonthId) => (
           <React.Fragment key={yearMonthId}>
             <h4 key={yearMonthId} className="font-serif">
-              {yearMonthId}
+              {makeYearMonthStringOrUnknown(yearMonthId)}
             </h4>
             {yearMonthIdToPostIds[yearMonthId].map((postId) => (
               <PostListItem
                 key={postId}
                 id={postId}
                 title={entities[postId].title}
-                date={toLocaleDateString(entities[postId].date!)}
+                date={makeDateStringOrUnknown(entities[postId].date)}
               />
             ))}
           </React.Fragment>

@@ -1,9 +1,9 @@
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 
 export type PostInfo = {
   id: string;
   title?: string;
-  date?: number;
+  date?: number | null;
   layout?: string;
   image?: string;
 };

@@ -1,13 +1,11 @@
 import { BasicLayout } from '@/components';
 import { Code } from '@/components/Code';
-import { Flex } from '@/components/Flex';
-import { PostButton } from '@/components/PostButton';
 import { PostInfo, StaticPost } from '@/typings';
-import { toLocaleDateString } from '@/utils/client';
+import { getPostPath, makeDateStringOrUnknown } from '@/utils/client';
 import { getPostFiles, getSortedPosts, getStaticPost } from '@/utils/posts';
 import { MDXRemote } from 'next-mdx-remote';
-import Link from 'next/link';
 import React from 'react';
+import { PostFooter } from '../../components/PostFooter';
 
 interface Props {
   previous: PostInfo | null;
@@ -16,10 +14,6 @@ interface Props {
 }
 
 export type { Props as PostDetailProps };
-
-function getPostPath(id: string) {
-  return `/posts/${id}`;
-}
 
 export const getStaticPaths = async () => {
   return {
@@ -53,7 +47,7 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
     <BasicLayout subTitle={post.frontMatter.title}>
       <h2>{post.frontMatter.title}</h2>
       <small className="text-slate-400 underline">
-        {toLocaleDateString(post.frontMatter.date!)}
+        {makeDateStringOrUnknown(post.frontMatter.date!)}
       </small>
       <MDXRemote
         {...post.mdxSource}
@@ -62,24 +56,7 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
         }}
       />
       <hr />
-      <Flex flexDirection="row" justifyContent="space-between">
-        <div>
-          {previous ? (
-            <PostButton>
-              <span>{'<<'}</span>
-              <Link href={getPostPath(previous.id)}>{previous.title}</Link>
-            </PostButton>
-          ) : null}
-        </div>
-        <div>
-          {next ? (
-            <PostButton>
-              <Link href={getPostPath(next.id)}>{next.title}</Link>
-              <span>{'>>'}</span>
-            </PostButton>
-          ) : null}
-        </div>
-      </Flex>
+      <PostFooter previous={previous} next={next} />
     </BasicLayout>
   );
 };
