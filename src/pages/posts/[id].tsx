@@ -1,11 +1,12 @@
-import { BasicLayout } from "@/components";
-import { Flex } from "@/components/Flex";
-import { PostButton } from "@/components/PostButton";
-import { PostInfo, StaticPost } from "@/typings";
-import { getPostFiles, getSortedPosts, getStaticPost } from "@/utils/posts";
-import { MDXRemote } from "next-mdx-remote";
-import Link from "next/link";
-import React from "react";
+import { BasicLayout } from '@/components';
+import { Code } from '@/components/Code';
+import { Flex } from '@/components/Flex';
+import { PostButton } from '@/components/PostButton';
+import { PostInfo, StaticPost } from '@/typings';
+import { getPostFiles, getSortedPosts, getStaticPost } from '@/utils/posts';
+import { MDXRemote } from 'next-mdx-remote';
+import Link from 'next/link';
+import React from 'react';
 
 interface Props {
   previous: PostInfo | null;
@@ -51,13 +52,18 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
     <BasicLayout subTitle={post.frontMatter.title}>
       <h2>{post.frontMatter.title}</h2>
       <small>{post.frontMatter.date}</small>
-      <MDXRemote {...post.mdxSource} />
+      <MDXRemote
+        {...post.mdxSource}
+        components={{
+          code: Code,
+        }}
+      />
       <hr />
       <Flex flexDirection="row" justifyContent="space-between">
         <div>
           {previous ? (
             <PostButton>
-              <span>{"<<"}</span>
+              <span>{'<<'}</span>
               <Link href={getPostPath(previous.id)}>{previous.title}</Link>
             </PostButton>
           ) : null}
@@ -66,7 +72,7 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
           {next ? (
             <PostButton>
               <Link href={getPostPath(next.id)}>{next.title}</Link>
-              <span>{">>"}</span>
+              <span>{'>>'}</span>
             </PostButton>
           ) : null}
         </div>
