@@ -17,16 +17,20 @@ export function PostFooter({ previous, next }: Props) {
       <div>
         {previous ? (
           <PostButton>
-            <span>{'<<'}</span>
-            <Link href={getPostPath(previous.id)}>{previous.title}</Link>
+            <Link href={getPostPath(previous.id)} className="no-underline">
+              <span className="me-1">{'<'}</span>
+              {previous.title}
+            </Link>
           </PostButton>
         ) : null}
       </div>
       <div>
         {next ? (
           <PostButton>
-            <Link href={getPostPath(next.id)}>{next.title}</Link>
-            <span>{'>>'}</span>
+            <Link href={getPostPath(next.id)} className="no-underline">
+              {next.title}
+              <span className="ms-1">{'>'}</span>
+            </Link>
           </PostButton>
         ) : null}
       </div>
