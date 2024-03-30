@@ -34,10 +34,10 @@ export const Posts: React.FC<Props> = ({ posts }) => {
       <PostListWrapper>
         {yearMonthIds.map((yearMonthId) => (
           <React.Fragment key={yearMonthId}>
-            <h4 key={yearMonthId} className="font-serif">
+            <h4 key={yearMonthId} className="font-serif mt-8 mb-2">
               {makeYearMonthStringOrUnknown(yearMonthId)}
             </h4>
-            <ul className="ps-0">
+            <ul className="ps-0 m-0 list-none">
               {yearMonthIdToPostIds[yearMonthId].map((postId) => (
                 <PostListItem
                   key={postId}
