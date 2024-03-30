@@ -4,7 +4,7 @@ import { PostListWrapper } from '@/components/PostListWrapper';
 import { PostInfo } from '@/typings';
 import {
   groupByYearMonth,
-  makeDateStringOrUnknown,
+  makeDayStringOrUnknown,
   makeYearMonthStringOrUnknown,
 } from '@/utils/client';
 import { getSortedPosts } from '@/utils/posts';
@@ -42,7 +42,7 @@ export const Posts: React.FC<Props> = ({ posts }) => {
                 key={postId}
                 id={postId}
                 title={entities[postId].title}
-                date={makeDateStringOrUnknown(entities[postId].date)}
+                date={makeDayStringOrUnknown(entities[postId].date)}
               />
             ))}
           </React.Fragment>
