@@ -37,14 +37,16 @@ export const Posts: React.FC<Props> = ({ posts }) => {
             <h4 key={yearMonthId} className="font-serif">
               {makeYearMonthStringOrUnknown(yearMonthId)}
             </h4>
-            {yearMonthIdToPostIds[yearMonthId].map((postId) => (
-              <PostListItem
-                key={postId}
-                id={postId}
-                title={entities[postId].title}
-                date={makeDayStringOrUnknown(entities[postId].date)}
-              />
-            ))}
+            <ul className="ps-0">
+              {yearMonthIdToPostIds[yearMonthId].map((postId) => (
+                <PostListItem
+                  key={postId}
+                  id={postId}
+                  title={entities[postId].title}
+                  date={makeDayStringOrUnknown(entities[postId].date)}
+                />
+              ))}
+            </ul>
           </React.Fragment>
         ))}
       </PostListWrapper>
