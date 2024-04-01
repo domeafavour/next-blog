@@ -9,12 +9,26 @@ const ri = readline.createInterface({
 
 const POST_TEMPLATE = `---
 title: {{title}}
+tags: {{tags}}
 ---
 `;
 
-function createNewPost(slug, title) {
+function makeFrontMatterArray(list) {
+  return list.map((item) => `- ${item}`).join('\n');
+}
+
+/**
+ * create a new post file
+ * @param {string} slug
+ * @param {string} title
+ * @param {string[]} tags
+ */
+function createNewPost(slug, title, tags) {
   const date = new Date().toISOString().split('T')[0];
-  const content = POST_TEMPLATE.replace('{{title}}', title);
+  const content = POST_TEMPLATE.replace('{{title}}', title).replace(
+    '{{tags}}',
+    '\n' + makeFrontMatterArray(tags)
+  );
   const fileName = `${date}-${slug}.mdx`;
   const filePath = path.join(process.cwd(), 'src', 'pages', 'posts', fileName);
 
@@ -37,9 +51,19 @@ function createNewPost(slug, title) {
   }
 }
 
+/**
+ * get question tags
+ * @param {string?} answer
+ */
+function getQuestionTags(answer) {
+  return answer ? answer.split(' ').map((s) => s.trim()) : [];
+}
+
 ri.question('slug: ', (slug) => {
   ri.question(`title(${slug}): `, (title) => {
-    createNewPost(slug, title || slug);
+    ri.question('tags(optional): ', (tags) => {
+      createNewPost(slug, title || slug, getQuestionTags(tags));
+    });
   });
 });
 
