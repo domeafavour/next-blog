@@ -6,6 +6,7 @@ export type PostInfo = {
   date?: number | null;
   layout?: string;
   image?: string;
+  tags?: string[];
 };
 
 export type StaticPost = {
