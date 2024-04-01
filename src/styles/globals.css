@@ -36,7 +36,7 @@ blockquote {
   @apply my-3 ms-4 border-l-4 border-t-0 border-r-0 border-b-0 border-solid border-gray-300 text-gray-600 py-0 px-4;
 }
 hr {
-  @apply border-t-2 border-b-0 border-l-0 border-r-0 border-solid border-gray-300;
+  @apply border-t border-b-0 border-l-0 border-r-0 border-solid border-gray-300;
 }
 table {
   @apply border-collapse mb-8 w-full;

@@ -45,16 +45,18 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
 
   return (
     <BasicLayout subTitle={post.frontMatter.title}>
-      <h2>{post.frontMatter.title}</h2>
-      <small className="text-slate-400 underline">
-        {makeDateStringOrUnknown(post.frontMatter.date!)}
-      </small>
-      <MDXRemote
-        {...post.mdxSource}
-        components={{
-          code: Code,
-        }}
-      />
+      <article className="min-h-72">
+        <h2>{post.frontMatter.title}</h2>
+        <small className="text-slate-400">
+          {makeDateStringOrUnknown(post.frontMatter.date!)}
+        </small>
+        <MDXRemote
+          {...post.mdxSource}
+          components={{
+            code: Code,
+          }}
+        />
+      </article>
       <hr />
       <PostFooter previous={previous} next={next} />
     </BasicLayout>

@@ -9,16 +9,16 @@ export type { Props as HeaderProps };
 export const Header: React.FC<Props> = () => {
   return (
     <div className="bg-gray-50">
-      <header className="py-2 mb-8 content">
-        <h3 className='p-0 m-0'>
-          <HomeLink>Welcome</HomeLink>
-          <div className="pt-2 block">
-            <nav className="flex flex-row gap-2">
-              <MenuLink href="/posts">Posts</MenuLink>
-              <MenuLink href="/notes">Notes</MenuLink>
-            </nav>
-          </div>
-        </h3>
+      <header className="content py-2">
+        <div className="flex flex-row items-center">
+          <h1 className="m-0 font-serif">
+            <HomeLink>Welcome</HomeLink>
+          </h1>
+          <nav className="flex flex-row gap-2 font-serif font-bold ms-auto">
+            <MenuLink href="/posts">Posts</MenuLink>
+            <MenuLink href="/notes">Notes</MenuLink>
+          </nav>
+        </div>
       </header>
     </div>
   );

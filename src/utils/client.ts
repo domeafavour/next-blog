@@ -56,6 +56,14 @@ export function makeYearMonthStringOrUnknown(date?: YearMonthId | null) {
       );
 }
 
+export function makeDayStringOrUnknown(date?: number | null) {
+  return date
+    ? Intl.DateTimeFormat('en', {
+        day: 'numeric',
+      }).format(new Date(date))
+    : 'UNKNOWN';
+}
+
 export function getPostPath(id: string) {
   return `/posts/${id}`;
 }

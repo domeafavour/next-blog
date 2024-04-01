@@ -7,11 +7,11 @@ export type { Props as FooterProps };
 
 export const Footer: React.FC<Props> = () => {
   return (
-    <footer className="text-left m-8">
+    <footer className="text-left my-8">
       <div className="block content">
         <Link
           href="/"
-          className="no-underline text-gray-600 hover:text-gray-800 p-2"
+          className="no-underline text-gray-600 hover:text-gray-800 py-2"
         >
           welcome
         </Link>
