@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type Props = React.ComponentProps<'div'>;
 
@@ -10,10 +10,7 @@ export const PostTagsWrapper = React.forwardRef<
   return (
     <div
       ref={forwardedRef}
-      className={classNames(
-        'flex flex-row flex-wrap w-fit gap-1 mt-2',
-        className
-      )}
+      className={twMerge('flex flex-row flex-wrap w-fit gap-1 mt-2', className)}
       {...props}
     >
       {children}

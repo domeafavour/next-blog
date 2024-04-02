@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type Props = React.ComponentProps<'small'>;
 
@@ -12,7 +12,7 @@ export const PostTag = React.forwardRef<
   return (
     <small
       ref={forwardedRef}
-      className={classNames(
+      className={twMerge(
         'text-xs rounded-sm border border-solid border-gray-200 bg-gray-100 font-mono px-2',
         className
       )}
