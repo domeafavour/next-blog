@@ -47,7 +47,7 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
 
   const { title, date, tags } = post.frontMatter;
 
-  const hasTags = tags?.length;
+  const hasTags = !!tags?.length;
 
   return (
     <BasicLayout subTitle={title}>
