@@ -1,5 +1,7 @@
 import { BasicLayout } from '@/components';
 import { Code } from '@/components/Code';
+import { PostTag } from '@/components/PostTag';
+import { PostTagsWrapper } from '@/components/PostTagsWrapper';
 import { PostInfo, StaticPost } from '@/typings';
 import { getPostPath, makeDateStringOrUnknown } from '@/utils/client';
 import { getPostFiles, getSortedPosts, getStaticPost } from '@/utils/posts';
@@ -43,13 +45,25 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
     return null;
   }
 
+  const { title, date, tags } = post.frontMatter;
+
+  const hasTags = !!tags?.length;
+
   return (
-    <BasicLayout subTitle={post.frontMatter.title}>
+    <BasicLayout subTitle={title}>
       <article className="min-h-72">
-        <h2>{post.frontMatter.title}</h2>
-        <small className="text-slate-400">
-          {makeDateStringOrUnknown(post.frontMatter.date!)}
-        </small>
+        <h2>{title}</h2>
+        <span className="text-slate-400 text-sm">
+          {makeDateStringOrUnknown(date)}
+        </span>
+        {hasTags && (
+          <PostTagsWrapper>
+            {tags.map((tag) => (
+              <PostTag key={tag}>{tag}</PostTag>
+            ))}
+          </PostTagsWrapper>
+        )}
+
         <MDXRemote
           {...post.mdxSource}
           components={{

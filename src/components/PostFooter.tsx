@@ -1,4 +1,3 @@
-import { Flex } from '@/components/Flex';
 import { PostButton } from '@/components/PostButton';
 import { PostInfo } from '@/typings';
 import { getPostPath } from '@/utils/client';
@@ -13,7 +12,7 @@ export type { Props as PostFooterProps };
 
 export function PostFooter({ previous, next }: Props) {
   return (
-    <Flex flexDirection="row" justifyContent="space-between">
+    <div className="flex flex-row justify-between">
       <div>
         {previous ? (
           <PostButton>
@@ -34,6 +33,6 @@ export function PostFooter({ previous, next }: Props) {
           </PostButton>
         ) : null}
       </div>
-    </Flex>
+    </div>
   );
 }

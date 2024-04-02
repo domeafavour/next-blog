@@ -1,11 +1,5 @@
-import { Flex, FlexProps } from "./Flex";
+interface Props extends React.PropsWithChildren {}
 
-interface Props extends FlexProps {}
-
-export const PostButton: React.FC<Props> = ({ children, ...props }) => {
-  return (
-    <Flex flexDirection="row" gap={8} alignItems="center" {...props}>
-      {children}
-    </Flex>
-  );
+export const PostButton: React.FC<Props> = ({ children }) => {
+  return <div className="flex flex-row gap-2 items-center">{children}</div>;
 };
