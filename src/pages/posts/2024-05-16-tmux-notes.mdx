@@ -1,0 +1,46 @@
+---
+title: tmux notes
+---
+
+> Try tmux for the first time
+
+[tmux Getting-Started](https://github.com/tmux/tmux/wiki/Getting-Started)
+
+[tmux cheatsheet](https://tmuxcheatsheet.com/#)
+
+[tmux plugins](https://github.com/tmux-plugins/list?tab=readme-ov-file)
+
+[how-do-i-terminate-a-window-in-tmux](https://stackoverflow.com/questions/7771557/how-do-i-terminate-a-window-in-tmux)
+
+[how-to-kill-all-tmux-sessions-or-at-least-multiple-sessions-from-the-cli](https://askubuntu.com/questions/868186/how-to-kill-all-tmux-sessions-or-at-least-multiple-sessions-from-the-cli)
+
+[how-do-i-rename-a-session-in-tmux](https://superuser.com/questions/428016/how-do-i-rename-a-session-in-tmux)
+
+[how-do-i-reload-tmux-configuration](https://superuser.com/questions/580992/how-do-i-reload-tmux-configuration)
+
+prefix: C + b
+
+- reload tmux conf: [prefix]: source ~/.tmux.conf
+- tmux ls
+- tmux new [-s][sessionname]
+
+## session
+
+- session list: [prefix] + s
+- delete(kill) session: show session list, :kill-session
+
+## window
+
+- create window: [prefix] + c
+- rename current window: [prefix] + ,
+- switch to next window: [prefix] + n
+- switch to previous window: [prefix] + p
+- list windows: [prefix] + w
+- delete(kill) window: show window list, :kill-window
+
+- split window -h: [prefix] + %
+- split window -v: [prefix] + "
+
+## pane
+
+- switch pane: [prefix] + arrows
