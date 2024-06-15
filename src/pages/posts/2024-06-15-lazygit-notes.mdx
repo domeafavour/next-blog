@@ -1,0 +1,42 @@
+---
+title: lazygit notes
+tags: ["lazygit", "lazyvim", "notes"]
+---
+
+> Try [lazygit](https://github.com/jesseduffield/lazygit) for the first time
+
+## Installation
+
+### Homebrew
+
+```bash
+brew install jesseduffield/lazygit/lazygit
+```
+
+## Keybindings
+
+| Key        | Description                             |
+| ---------- | --------------------------------------- |
+| `h` / `l`  | Move between panels                     |
+| `q`        | Quit                                    |
+| `1` to `5` | Switch between views                    |
+| `<space>`  | Toggle stage                            |
+| `v`        | Start selecting a range of lines        |
+| `a`        | Select the entirety of the current hunk |
+
+Or press `?` to see the full list of keybindings
+
+### In Terminal
+
+```bash
+lazygit
+```
+
+### In LazyVim
+
+[LazyVim - keymaps#general](https://www.lazyvim.org/keymaps#general)
+
+| Key          | Description        | Mode  |
+| ------------ | ------------------ | ----- |
+| `<leader>gg` | Lazygit (Root Dir) | **n** |
+| `<leader>gG` | Lazygit (cwd)      | **n** |

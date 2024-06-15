@@ -1,13 +1,14 @@
-import { PostInfo, StaticPost } from '@/typings';
-import fs from 'fs';
-import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import path from 'path';
+import { PostInfo, StaticPost } from "@/typings";
+import fs from "fs";
+import matter from "gray-matter";
+import { serialize } from "next-mdx-remote/serialize";
+import remarkGfm from "remark-gfm";
+import path from "path";
 
-const BASE_DIR = './src/pages/posts';
+const BASE_DIR = "./src/pages/posts";
 
 export function getPostFiles() {
-  return fs.readdirSync(BASE_DIR).filter((d) => d.endsWith('.mdx'));
+  return fs.readdirSync(BASE_DIR).filter((d) => d.endsWith(".mdx"));
 }
 
 export async function getPostInfos(): Promise<PostInfo[]> {
@@ -15,7 +16,7 @@ export async function getPostInfos(): Promise<PostInfo[]> {
   return (await Promise.all(postFiles.map((file) => getStaticPost(file)))).map(
     (post) => {
       return post.frontMatter as PostInfo;
-    }
+    },
   );
 }
 
@@ -51,16 +52,18 @@ function getPostInfoFromFileName(fileName: string): BasePostInfo | undefined {
 export async function getStaticPost(fileName: string) {
   const markdownWithMeta = await fs.promises.readFile(
     path.join(BASE_DIR, fileName),
-    'utf-8'
+    "utf-8",
   );
   const { data: frontMatter, content } = matter(markdownWithMeta);
-  const mdxSource = await serialize(content);
+  const mdxSource = await serialize(content, {
+    mdxOptions: { remarkPlugins: [remarkGfm] },
+  });
   const baseInfo = getPostInfoFromFileName(fileName);
   const post: StaticPost = {
     frontMatter: {
       ...{
         /** set default layout: `post` */
-        layout: 'post',
+        layout: "post",
         ...baseInfo,
         ...frontMatter,
         date: baseInfo?.date ? Date.parse(baseInfo.date) : null,
