@@ -10,7 +10,7 @@ module.exports = {
     plugin(function ({ addComponents }) {
       addComponents({
         '.content': {
-          width: '615px',
+          width: '768px',
           margin: '0 auto',
           '@media (max-width: 768px)': {
             width: '90vw',
