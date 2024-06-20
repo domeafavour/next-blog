@@ -1,0 +1,145 @@
+---
+title: docker notes
+tags:
+  - docker
+  - notes
+---
+
+> Try [docker](https://docs.docker.com/) for the f... not the first time.
+
+## Goals
+
+- Quick `hello world`
+- Run and update a simple web server
+- Create a react app with docker
+
+### Quick `hello world`
+
+```bash
+docker run -d -p 80:80 docker/getting-started
+```
+
+```bash
+curl http://localhost:80
+```
+
+### Run and update a simple web server
+
+1. Download [getting-started](http://localhost/assets/app.zip)
+
+2. Create a `Dockerfile`
+
+```Dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+```
+
+3. Build a image named `getting-started`
+
+```bash
+docker build -t getting-started .
+```
+
+> Finally, the `-t` flag tags our image. Think of this simply as a human-readable name for the final image. Since we named the image `getting-started`, we can refer to that image when we run a container.
+
+> The `.` at the end of the `docker build` command tells that Docker should look for the `Dockerfile` in the current directory.
+
+4. Run the image
+
+```bash
+docker run -dp 4000:3000 getting-started
+```
+
+> We're running the new container in "detached" mode (in the background) and creating a mapping between the host's port 3000 to the container's port 3000. Without the port mapping, we wouldn't be able to access the application.
+
+- `4000`: host port
+- `3000`: container port (app server runs on port 3000)
+
+5. Open a browser and navigate to `http://localhost:4000`
+
+6. Update the `src/static/js/index.js` file
+
+```diff
+- <p className="text-center">No items yet! Add one above!</p>
++ <p className="text-center">You have no todo items yet! Add one above!</p>
+```
+
+7. build the image again
+
+```bash
+docker build -t getting-started .
+```
+
+8. Stop the container
+
+```bash
+# Swap out <the-container-id> with the ID from docker ps
+docker stop <the-container-id>
+```
+
+9. Remove the container
+
+```bash
+docker rm <the-container-id>
+```
+
+> You can stop and remove a container in a single command by adding the "force" flag to the docker `rm command`. For example: `docker rm -f <the-container-id>`
+
+10. Start the container again
+
+```bash
+docker run -dp 4000:3000 getting-started
+```
+
+### Create a react app with docker
+
+> [How to Dockerize a React Application – A Step by Step Tutorial](https://www.freecodecamp.org/news/how-to-dockerize-a-react-application/)
+
+1. Create a react app using vite
+
+```bash
+pnpm create vite react-app
+```
+
+2. Create a `Dockerfile`
+
+```Dockerfile
+FROM node:18-alpine
+WORKDIR /react-vite-app
+COPY . .
+RUN npm install -g pnpm
+RUN pnpm install
+CMD ["pnpm", "dev"]
+
+```
+
+3. Build a image named `react-vite-app`
+
+```bash
+docker build -t react-vite-app .
+```
+
+4. Run the image
+
+```bash
+docker run -dp 8888:5173 react-vite-app
+```
+
+5. Open the browser and navigate to `http://localhost:8888`
+
+---
+
+## Cheat Sheet
+
+| Command                          | Description                                                 |
+| -------------------------------- | ----------------------------------------------------------- |
+| `docker ps`                      | List all running containers                                 |
+| `docker ps -a`                   | List all containers, running and stopped                    |
+| `docker images`                  | List all images                                             |
+| `docker build -t <image-name> .` | Build an image from the Dockerfile in the current directory |
+| `docker run <image-name>`        | Run a container from the specified image                    |
+| `docker stop <container-id>`     | Stop a running container                                    |
+| `docker rm <container-id>`       | Remove a stopped container                                  |
