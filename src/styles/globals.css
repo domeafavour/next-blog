@@ -58,5 +58,5 @@ code {
   @apply py-1 px-2 bg-gray-100 rounded-md text-sm;
 }
 pre {
-  @apply block mt-0 mb-4 p-4 text-xs bg-gray-100 rounded-md whitespace-pre-wrap break-words;
+  @apply block mt-0 mb-4 text-xs bg-gray-100 rounded-md whitespace-pre-wrap break-words;
 }

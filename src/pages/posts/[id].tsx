@@ -1,13 +1,14 @@
-import { BasicLayout } from '@/components';
-import { Code } from '@/components/Code';
-import { PostTag } from '@/components/PostTag';
-import { PostTagsWrapper } from '@/components/PostTagsWrapper';
-import { PostInfo, StaticPost } from '@/typings';
-import { getPostPath, makeDateStringOrUnknown } from '@/utils/client';
-import { getPostFiles, getSortedPosts, getStaticPost } from '@/utils/posts';
-import { MDXRemote } from 'next-mdx-remote';
-import React from 'react';
-import { PostFooter } from '../../components/PostFooter';
+import { BasicLayout } from "@/components";
+import { PostTag } from "@/components/PostTag";
+import { PostTagsWrapper } from "@/components/PostTagsWrapper";
+import { PostInfo, StaticPost } from "@/typings";
+import { getPostPath, makeDateStringOrUnknown } from "@/utils/client";
+import { getPostFiles, getSortedPosts, getStaticPost } from "@/utils/posts";
+import { MDXRemote } from "next-mdx-remote";
+import React, { useEffect } from "react";
+import { PostFooter } from "../../components/PostFooter";
+import hljs from "highlight.js";
+import "highlight.js/styles/dark.min.css";
 
 interface Props {
   previous: PostInfo | null;
@@ -27,7 +28,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (props: { params: { id: string } }) => {
   const sortedPosts = await getSortedPosts();
   const postIndex = sortedPosts.findIndex(
-    (post) => post.id === props.params.id
+    (post) => post.id === props.params.id,
   );
   const previous = sortedPosts[postIndex - 1] ?? null;
   const next = sortedPosts[postIndex + 1] ?? null;
@@ -41,13 +42,13 @@ export const getStaticProps = async (props: { params: { id: string } }) => {
 };
 
 export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
-  if (!post) {
-    return null;
-  }
-
-  const { title, date, tags } = post.frontMatter;
+  const { title, date, tags } = post!.frontMatter;
 
   const hasTags = !!tags?.length;
+
+  useEffect(() => {
+    hljs.highlightAll();
+  }, []);
 
   return (
     <BasicLayout subTitle={title}>
@@ -64,12 +65,7 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
           </PostTagsWrapper>
         )}
 
-        <MDXRemote
-          {...post.mdxSource}
-          components={{
-            code: Code,
-          }}
-        />
+        <MDXRemote {...post!.mdxSource} />
       </article>
       <hr />
       <PostFooter previous={previous} next={next} />
