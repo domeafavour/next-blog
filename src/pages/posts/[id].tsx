@@ -4,11 +4,9 @@ import { PostTagsWrapper } from "@/components/PostTagsWrapper";
 import { PostInfo, StaticPost } from "@/typings";
 import { getPostPath, makeDateStringOrUnknown } from "@/utils/client";
 import { getPostFiles, getSortedPosts, getStaticPost } from "@/utils/posts";
-import { MDXRemote } from "next-mdx-remote";
-import React, { useEffect } from "react";
+import React from "react";
 import { PostFooter } from "../../components/PostFooter";
-import hljs from "highlight.js";
-import "highlight.js/styles/dark.min.css";
+import { PostContent } from "@/components/PostContent";
 
 interface Props {
   previous: PostInfo | null;
@@ -42,13 +40,13 @@ export const getStaticProps = async (props: { params: { id: string } }) => {
 };
 
 export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
-  const { title, date, tags } = post!.frontMatter;
+  if (!post) {
+    return null;
+  }
+
+  const { title, date, tags } = post.frontMatter;
 
   const hasTags = !!tags?.length;
-
-  useEffect(() => {
-    hljs.highlightAll();
-  }, []);
 
   return (
     <BasicLayout subTitle={title}>
@@ -65,7 +63,7 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
           </PostTagsWrapper>
         )}
 
-        <MDXRemote {...post!.mdxSource} />
+        <PostContent {...post.mdxSource} />
       </article>
       <hr />
       <PostFooter previous={previous} next={next} />
