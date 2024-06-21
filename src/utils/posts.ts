@@ -1,8 +1,6 @@
 import { PostInfo, StaticPost } from "@/typings";
 import fs from "fs";
 import matter from "gray-matter";
-import { serialize } from "next-mdx-remote/serialize";
-import remarkGfm from "remark-gfm";
 import path from "path";
 
 const BASE_DIR = "./src/pages/posts";
@@ -55,9 +53,6 @@ export async function getStaticPost(fileName: string) {
     "utf-8",
   );
   const { data: frontMatter, content } = matter(markdownWithMeta);
-  const mdxSource = await serialize(content, {
-    mdxOptions: { remarkPlugins: [remarkGfm] },
-  });
   const baseInfo = getPostInfoFromFileName(fileName);
   const post: StaticPost = {
     frontMatter: {
@@ -71,7 +66,7 @@ export async function getStaticPost(fileName: string) {
       id: fileName,
     },
     slug: fileName,
-    mdxSource,
+    content,
   };
   return post;
 }
