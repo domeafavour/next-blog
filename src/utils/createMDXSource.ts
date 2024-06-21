@@ -14,6 +14,7 @@ export async function createMDXSource(content: string) {
           // @ts-ignore this is ok.
           rehypeHighlight,
           {
+            detect: true,
             languages: { ...common, dockerfile, bash },
           },
         ],
