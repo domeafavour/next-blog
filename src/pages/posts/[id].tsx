@@ -1,17 +1,19 @@
 import { BasicLayout } from "@/components";
+import { PostContent } from "@/components/PostContent";
 import { PostTag } from "@/components/PostTag";
 import { PostTagsWrapper } from "@/components/PostTagsWrapper";
-import { PostInfo, StaticPost } from "@/typings";
+import { MDXSource, PostInfo, StaticPost } from "@/typings";
 import { getPostPath, makeDateStringOrUnknown } from "@/utils/client";
+import { createMDXSource } from "@/utils/createMDXSource";
 import { getPostFiles, getSortedPosts, getStaticPost } from "@/utils/posts";
 import React from "react";
 import { PostFooter } from "../../components/PostFooter";
-import { PostContent } from "@/components/PostContent";
 
 interface Props {
   previous: PostInfo | null;
   next: PostInfo | null;
   post?: StaticPost;
+  mdxSource: MDXSource | null;
 }
 
 export type { Props as PostDetailProps };
@@ -30,17 +32,24 @@ export const getStaticProps = async (props: { params: { id: string } }) => {
   );
   const previous = sortedPosts[postIndex - 1] ?? null;
   const next = sortedPosts[postIndex + 1] ?? null;
+  const post = await getStaticPost(props.params.id);
   return {
     props: {
       previous,
       next,
-      post: await getStaticPost(props.params.id),
+      post,
+      mdxSource: post ? await createMDXSource(post.content) : null,
     },
   };
 };
 
-export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
-  if (!post) {
+export const PostDetail: React.FC<Props> = ({
+  post,
+  previous,
+  next,
+  mdxSource,
+}) => {
+  if (!post || !mdxSource) {
     return null;
   }
 
@@ -63,7 +72,7 @@ export const PostDetail: React.FC<Props> = ({ post, previous, next }) => {
           </PostTagsWrapper>
         )}
 
-        <PostContent {...post.mdxSource} />
+        <PostContent {...mdxSource} />
       </article>
       <hr />
       <PostFooter previous={previous} next={next} />
