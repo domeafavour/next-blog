@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React from 'react';
-import { twMerge } from 'tailwind-merge';
+import { cn } from "@/utils/cn";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
 
 export function MenuLink({
   href,
@@ -13,14 +13,14 @@ export function MenuLink({
   return (
     <Link
       href={href}
-      className={twMerge(
-        'px-2 py-1',
-        'hover:text-black',
-        'hover:bg-gray-200',
-        'text-lg no-underline',
-        'rounded-md',
-        matched && ['text-black', 'bg-gray-200'],
-        !matched && ['text-gray-500']
+      className={cn(
+        "px-2 py-1",
+        "hover:text-primary",
+        "hover:bg-primary/10",
+        "text-lg no-underline",
+        "rounded-md",
+        matched && ["text-primary", "bg-primary/10"],
+        !matched && ["text-primary/60"]
       )}
     >
       {children}

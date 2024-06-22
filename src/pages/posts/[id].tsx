@@ -61,7 +61,7 @@ export const PostDetail: React.FC<Props> = ({
     <BasicLayout subTitle={title}>
       <article className="min-h-72">
         <h2>{title}</h2>
-        <span className="text-slate-400 text-sm">
+        <span className="text-secondary-foreground text-sm">
           {makeDateStringOrUnknown(date)}
         </span>
         {hasTags && (

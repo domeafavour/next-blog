@@ -1,7 +1,8 @@
-import Head from 'next/head';
-import React from 'react';
-import { Footer } from './Footer';
-import { Header } from './Header';
+import Head from "next/head";
+import React from "react";
+import { Footer } from "./Footer";
+import { Header } from "./Header";
+import { ThemeProvider } from "./ThemeProvider";
 
 interface Props extends React.PropsWithChildren<{}> {
   subTitle?: string;
@@ -9,7 +10,7 @@ interface Props extends React.PropsWithChildren<{}> {
 
 export type { Props as BasicLayoutProps };
 
-export const BASE_TITLE = 'Next Blog';
+export const BASE_TITLE = "Next Blog";
 
 export const BasicLayout: React.FC<Props> = ({ subTitle, children }) => {
   return (
@@ -21,9 +22,16 @@ export const BasicLayout: React.FC<Props> = ({ subTitle, children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Header />
-        <div className="content">{children}</div>
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <div className="content">{children}</div>
+          <Footer />
+        </ThemeProvider>
       </main>
     </>
   );
