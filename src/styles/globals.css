@@ -1,62 +1,151 @@
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-  @apply font-serif text-gray-500 leading-7 m-0;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    --primary: 220.9 39.3% 11%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 4.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 210 20% 98%;
+    --primary-foreground: 220.9 39.3% 11%;
+
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 216 12.2% 83.9%;
+  }
 }
-@media (max-width: 30em) {
+
+@layer base {
+  * {
+    @apply border-border;
+  }
   body {
-    @apply text-sm;
+    @apply font-serif text-foreground leading-7 m-0;
   }
-  body h1 {
-    @apply text-2xl;
+
+  @media (max-width: 30em) {
+    body {
+      @apply text-sm;
+    }
+    body h1 {
+      @apply text-2xl;
+    }
   }
-}
-h1 {
-  @apply text-4xl;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-sans text-gray-600;
-}
-a {
-  @apply underline text-gray-600;
-}
-a:hover {
-  @apply text-black border-b-0;
-}
-img {
-  @apply w-full object-cover h-auto rounded-md;
-}
-blockquote {
-  @apply my-3 ms-4 border-l-4 border-t-0 border-r-0 border-b-0 border-solid border-gray-300 text-gray-600 py-0 px-4;
-}
-hr {
-  @apply border-t border-b-0 border-l-0 border-r-0 border-solid border-gray-300;
-}
-table {
-  @apply border-collapse mb-8 w-full;
-}
-table,
-th,
-td {
-  @apply border border-solid border-gray-300;
-}
-th,
-td {
-  @apply p-2;
-}
-code,
-pre {
-  @apply font-mono;
-}
-code {
-  @apply py-1 px-2 bg-gray-100 rounded-md text-sm;
-}
-pre {
-  @apply block mt-0 mb-4 text-xs bg-gray-100 rounded-md whitespace-pre-wrap break-words;
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans text-foreground;
+    font-size: revert;
+    font-weight: revert;
+    margin: revert;
+    padding: revert;
+  }
+  ul,
+  ol {
+    list-style: revert;
+    margin: revert;
+    padding: revert;
+  }
+
+  p {
+    margin: revert;
+  }
+
+  a {
+    @apply underline text-foreground;
+  }
+  a:hover {
+    @apply text-foreground/60 border-b-0;
+  }
+  img {
+    @apply w-full object-cover h-auto rounded-md;
+  }
+  blockquote {
+    @apply my-3 ms-4 border-l-4 border-t-0 border-r-0 border-b-0 border-solid text-muted-foreground py-0 px-4;
+  }
+  hr {
+    @apply border-t border-b-0 border-l-0 border-r-0 border-solid;
+    margin: revert;
+  }
+  table {
+    @apply border-collapse mb-8 w-full;
+  }
+  table,
+  th,
+  td {
+    @apply border;
+  }
+  th,
+  td {
+    @apply p-2;
+  }
+  code,
+  pre {
+    @apply font-mono;
+  }
+  code {
+    @apply py-1 px-2 bg-accent rounded-md text-sm;
+  }
+  pre {
+    @apply block mt-0 mb-4 text-xs bg-primary-foreground rounded-md whitespace-pre-wrap break-words;
+  }
 }
