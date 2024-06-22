@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import React from "react";
 
 interface Props {}
 
@@ -11,7 +11,7 @@ export const Footer: React.FC<Props> = () => {
       <div className="block content">
         <Link
           href="/"
-          className="no-underline text-gray-600 hover:text-gray-800 py-2"
+          className="no-underline text-primary hover:text-primary/90 py-2"
         >
           welcome
         </Link>
