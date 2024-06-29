@@ -18,7 +18,6 @@ export const Header: React.FC<Props> = () => {
           <div className="flex flex-row gap-2 items-center ms-auto">
             <nav className="flex flex-row gap-2 font-serif font-bold">
               <MenuLink href="/posts">Posts</MenuLink>
-              <MenuLink href="/notes">Notes</MenuLink>
             </nav>
             <ToggleTheme />
           </div>
