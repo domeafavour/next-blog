@@ -1,0 +1,42 @@
+---
+title: Cypress React Typescript Notes
+tags:
+  - react
+  - notes
+---
+
+> Try [cypress](https://docs.cypress.io/) on macOS
+
+## Installation
+
+```bash
+pnpm install cypress -D
+```
+
+## Opening the App
+
+```bash
+pnpm cypress open
+```
+
+This will install Cypress locally as a dev dependency for your project.
+
+### Adding npm scripts
+
+```json
+{
+  "scripts": {
+    "cy:open": "cypress open"
+  }
+}
+```
+
+## TypeScript
+
+tsconfig.json
+
+```json
+{
+  "include": ["cypress/**/*.ts"]
+}
+```
