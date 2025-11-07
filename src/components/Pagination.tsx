@@ -84,35 +84,37 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className="flex items-center justify-center gap-2 mt-8 mb-8">
-      <Link
-        href={getPageUrl(Math.max(1, currentPage - 1))}
-        passHref
-        legacyBehavior
-      >
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={currentPage === 1}
-          asChild
-        >
-          <a>Previous</a>
+      {currentPage === 1 ? (
+        <Button variant="outline" size="sm" disabled>
+          Previous
         </Button>
-      </Link>
+      ) : (
+        <Link
+          href={getPageUrl(Math.max(1, currentPage - 1))}
+          passHref
+          legacyBehavior
+        >
+          <Button variant="outline" size="sm" asChild>
+            <a>Previous</a>
+          </Button>
+        </Link>
+      )}
       {renderPageNumbers()}
-      <Link
-        href={getPageUrl(Math.min(totalPages, currentPage + 1))}
-        passHref
-        legacyBehavior
-      >
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={currentPage === totalPages}
-          asChild
-        >
-          <a>Next</a>
+      {currentPage === totalPages ? (
+        <Button variant="outline" size="sm" disabled>
+          Next
         </Button>
-      </Link>
+      ) : (
+        <Link
+          href={getPageUrl(Math.min(totalPages, currentPage + 1))}
+          passHref
+          legacyBehavior
+        >
+          <Button variant="outline" size="sm" asChild>
+            <a>Next</a>
+          </Button>
+        </Link>
+      )}
     </div>
   );
 };
