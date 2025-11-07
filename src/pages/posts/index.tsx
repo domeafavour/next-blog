@@ -32,12 +32,14 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 export const Posts: React.FC<Props> = ({ allPosts }) => {
   const router = useRouter();
-  const currentPage = parseInt((router.query.page as string) || '1', 10);
   const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
   
-  const posts = useMemo(() => {
+  const { posts, currentPage } = useMemo(() => {
+    // Parse and validate page parameter
+    const pageParam = router.query.page;
+    let page = typeof pageParam === 'string' ? parseInt(pageParam, 10) : 1;
+    
     // Validate page is a valid number and within bounds
-    let page = currentPage;
     if (isNaN(page) || page < 1) {
       page = 1;
     } else if (page > totalPages) {
@@ -46,8 +48,13 @@ export const Posts: React.FC<Props> = ({ allPosts }) => {
     
     const startIndex = (page - 1) * POSTS_PER_PAGE;
     const endIndex = startIndex + POSTS_PER_PAGE;
-    return allPosts.slice(startIndex, endIndex);
-  }, [allPosts, currentPage, totalPages]);
+    const paginatedPosts = allPosts.slice(startIndex, endIndex);
+    
+    return {
+      posts: paginatedPosts,
+      currentPage: page,
+    };
+  }, [allPosts, router.query.page, totalPages]);
 
   const { yearMonthIds, yearMonthIdToPostIds, entities } =
     groupByYearMonth(posts);
