@@ -22,10 +22,19 @@ export type { Props as PostsProps };
 const POSTS_PER_PAGE = 20;
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-  const page = parseInt((context.query.page as string) || '1', 10);
   const sorted = await getSortedPosts();
-  
   const totalPages = Math.ceil(sorted.length / POSTS_PER_PAGE);
+  
+  // Parse and validate page parameter
+  let page = parseInt((context.query.page as string) || '1', 10);
+  
+  // Validate page is a valid number and within bounds
+  if (isNaN(page) || page < 1) {
+    page = 1;
+  } else if (page > totalPages) {
+    page = totalPages;
+  }
+  
   const startIndex = (page - 1) * POSTS_PER_PAGE;
   const endIndex = startIndex + POSTS_PER_PAGE;
   const paginatedPosts = sorted.slice(startIndex, endIndex);

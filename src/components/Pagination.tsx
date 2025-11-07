@@ -33,9 +33,9 @@ export const Pagination: React.FC<PaginationProps> = ({
 
     if (startPage > 1) {
       pages.push(
-        <Link key={1} href={getPageUrl(1)} passHref legacyBehavior>
-          <Button variant="outline" size="sm" asChild>
-            <a>1</a>
+        <Link key={1} href={getPageUrl(1)}>
+          <Button variant="outline" size="sm">
+            1
           </Button>
         </Link>
       );
@@ -50,13 +50,12 @@ export const Pagination: React.FC<PaginationProps> = ({
 
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
-        <Link key={i} href={getPageUrl(i)} passHref legacyBehavior>
+        <Link key={i} href={getPageUrl(i)}>
           <Button
             variant={i === currentPage ? 'default' : 'outline'}
             size="sm"
-            asChild
           >
-            <a>{i}</a>
+            {i}
           </Button>
         </Link>
       );
@@ -71,9 +70,9 @@ export const Pagination: React.FC<PaginationProps> = ({
         );
       }
       pages.push(
-        <Link key={totalPages} href={getPageUrl(totalPages)} passHref legacyBehavior>
-          <Button variant="outline" size="sm" asChild>
-            <a>{totalPages}</a>
+        <Link key={totalPages} href={getPageUrl(totalPages)}>
+          <Button variant="outline" size="sm">
+            {totalPages}
           </Button>
         </Link>
       );
@@ -89,13 +88,9 @@ export const Pagination: React.FC<PaginationProps> = ({
           Previous
         </Button>
       ) : (
-        <Link
-          href={getPageUrl(Math.max(1, currentPage - 1))}
-          passHref
-          legacyBehavior
-        >
-          <Button variant="outline" size="sm" asChild>
-            <a>Previous</a>
+        <Link href={getPageUrl(Math.max(1, currentPage - 1))}>
+          <Button variant="outline" size="sm">
+            Previous
           </Button>
         </Link>
       )}
@@ -105,13 +100,9 @@ export const Pagination: React.FC<PaginationProps> = ({
           Next
         </Button>
       ) : (
-        <Link
-          href={getPageUrl(Math.min(totalPages, currentPage + 1))}
-          passHref
-          legacyBehavior
-        >
-          <Button variant="outline" size="sm" asChild>
-            <a>Next</a>
+        <Link href={getPageUrl(Math.min(totalPages, currentPage + 1))}>
+          <Button variant="outline" size="sm">
+            Next
           </Button>
         </Link>
       )}
