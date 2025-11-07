@@ -23,7 +23,7 @@ const POSTS_PER_PAGE = 20;
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const sorted = await getSortedPosts();
-  const totalPages = Math.ceil(sorted.length / POSTS_PER_PAGE);
+  const totalPages = Math.max(1, Math.ceil(sorted.length / POSTS_PER_PAGE));
   
   // Parse and validate page parameter
   let page = parseInt((context.query.page as string) || '1', 10);

@@ -88,7 +88,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           Previous
         </Button>
       ) : (
-        <Link href={getPageUrl(Math.max(1, currentPage - 1))}>
+        <Link href={getPageUrl(currentPage - 1)}>
           <Button variant="outline" size="sm">
             Previous
           </Button>
@@ -100,7 +100,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           Next
         </Button>
       ) : (
-        <Link href={getPageUrl(Math.min(totalPages, currentPage + 1))}>
+        <Link href={getPageUrl(currentPage + 1)}>
           <Button variant="outline" size="sm">
             Next
           </Button>
