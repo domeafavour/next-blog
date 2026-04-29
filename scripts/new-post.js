@@ -2,6 +2,15 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
+function printHelpAndExit() {
+  console.log(`Usage: node scripts/new-post.js\n\nOptions:\n  -h, --help    Show this help message and exit\n\nThis script will interactively prompt for:\n  slug         The post slug (used in filename)\n  title        The post title (defaults to slug if empty)\n  tags         Space-separated tags (optional)\n\nExample:\n  node scripts/new-post.js\n`);
+  process.exit(0);
+}
+
+if (process.argv.includes('-h') || process.argv.includes('--help')) {
+  printHelpAndExit();
+}
+
 const ri = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
