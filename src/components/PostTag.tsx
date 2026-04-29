@@ -1,12 +1,12 @@
 import React from "react";
 import { Badge } from "./ui/badge";
 
-type Props = React.ComponentProps<"small">;
+type Props = React.ComponentPropsWithoutRef<typeof Badge>;
 
 export type { Props as PostTagProps };
 
 export const PostTag = React.forwardRef<
-  React.ComponentRef<"small"> | null,
+  React.ComponentRef<typeof Badge>,
   Props
 >(({ children, ...props }, forwardedRef) => {
   return (
