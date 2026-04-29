@@ -1,0 +1,40 @@
+---
+title: Agent Skill create post
+tags:
+  - skill
+---
+
+## Using Agent Skill to Create a New Post
+
+This article demonstrates how to use an agent skill to automate the creation of a new blog post in this project.
+
+### Why automate post creation?
+
+- Ensures consistency in file naming and frontmatter
+- Reduces manual errors
+- Saves time for frequent bloggers
+
+### How it works
+
+1. The agent skill listens for prompts like "create a new post".
+2. It runs the `pnpm new-post` command, which triggers an interactive script.
+3. The script collects the slug, title, and tags, then generates a new MDX file in `src/pages/posts/`.
+
+### Example
+
+Suppose you want to create a post about using agent skills:
+
+- **Slug:** agent-skill-create-post
+- **Title:** Agent Skill create post
+- **Tags:** skill
+
+The agent skill will:
+
+- Run the command
+- Fill in the prompts
+- Create `src/pages/posts/2026-04-29-agent-skill-create-post.mdx` with the correct frontmatter
+
+### Benefits
+
+- Streamlined workflow for content creators
+- Easy to extend for more metadata or templates
