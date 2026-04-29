@@ -1,4 +1,6 @@
-const withMDX = require('@next/mdx')({
+const path = require("path");
+
+const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
@@ -7,9 +9,10 @@ const withMDX = require('@next/mdx')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['md', 'mdx', 'ts', 'tsx', 'js', 'jsx'],
+  pageExtensions: ["md", "mdx", "ts", "tsx", "js", "jsx"],
   reactStrictMode: true,
-  basePath: '/next-blog',
+  basePath: "/next-blog",
+  outputFileTracingRoot: path.join(__dirname),
   images: {
     unoptimized: true,
   },
