@@ -1,0 +1,19 @@
+---
+# title: 为什么你的`useOptimistic`不起作用
+title: Why is your useOptimistic not working
+tags:
+  - react
+  - hooks
+  - useOptimistic
+---
+
+import { WhyIsYourUseOptimisticNotWorking } from "../../components/examples/WhyIsYourUseOptimisticNotWorking";
+
+## Reasons
+
+1. You didn't use `startTransition` to wrap the optimistic update
+2. Your optimistic update function is not async
+
+## Example
+
+<WhyIsYourUseOptimisticNotWorking />
