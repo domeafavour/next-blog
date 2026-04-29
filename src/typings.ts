@@ -1,5 +1,3 @@
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
-
 export type PostInfo = {
   id: string;
   title?: string;
@@ -15,7 +13,6 @@ export type StaticPost = {
   content: string;
 };
 
-export type MDXSource = MDXRemoteSerializeResult<
-  Record<string, unknown>,
-  Record<string, unknown>
->;
+export type MDXSource = {
+  code: string;
+};

@@ -6,6 +6,7 @@ import { MDXSource, PostInfo, StaticPost } from "@/typings";
 import { getPostPath, makeDateStringOrUnknown } from "@/utils/client";
 import { createMDXSource } from "@/utils/createMDXSource";
 import { getPostFiles, getSortedPosts, getStaticPost } from "@/utils/posts";
+import path from "path";
 import React from "react";
 import { PostFooter } from "../../components/PostFooter";
 
@@ -21,11 +22,12 @@ export type { Props as PostDetailProps };
 export const getStaticPaths = async () => {
   return {
     paths: getPostFiles().map(getPostPath),
-    fallback: true,
+    fallback: false,
   };
 };
 
 export const getStaticProps = async (props: { params: { id: string } }) => {
+  const postsDir = path.join(process.cwd(), "src/pages/posts");
   const sortedPosts = await getSortedPosts();
   const postIndex = sortedPosts.findIndex(
     (post) => post.id === props.params.id,
@@ -38,7 +40,7 @@ export const getStaticProps = async (props: { params: { id: string } }) => {
       previous,
       next,
       post,
-      mdxSource: post ? await createMDXSource(post.content) : null,
+      mdxSource: post ? await createMDXSource(post.content, postsDir) : null,
     },
   };
 };
