@@ -9,6 +9,7 @@ const withMDX = require("@next/mdx")({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
   pageExtensions: ["md", "mdx", "ts", "tsx", "js", "jsx"],
   reactStrictMode: true,
   basePath: "/next-blog",
