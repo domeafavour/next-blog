@@ -43,6 +43,7 @@ function createNewPost(slug, title, tags) {
 
   function writePostFile() {
     fs.writeFileSync(filePath, content);
+    console.log(`Post created: ${filePath}`);
     ri.close();
   }
 
@@ -76,6 +77,6 @@ ri.question('slug: ', (slug) => {
   });
 });
 
-ri.on('close', () => {
-  process.exit(1);
-});
+// ri.on('close', () => {
+//   process.exit(1);
+// });
