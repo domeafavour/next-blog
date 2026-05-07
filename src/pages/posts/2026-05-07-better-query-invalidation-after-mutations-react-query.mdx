@@ -1,0 +1,165 @@
+---
+title: A Better Way to Invalidate Queries After Successful Mutations with React Query
+tags:
+  - react
+  - react-query
+  - tanstack-react-query
+  - mutations
+  - caching
+---
+
+When I first used `@tanstack/react-query`, I handled mutations like this:
+
+```ts
+const queryClient = useQueryClient();
+
+const createTodo = useMutation({
+  mutationFn: createTodoRequest,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ["todos"] });
+  },
+});
+```
+
+It works, but as the app grows, this pattern starts to hurt:
+
+- Invalidation logic gets duplicated in many components.
+- It is easy to invalidate too much or too little.
+- Query keys drift over time, and bugs show up as stale UI.
+
+Here is a better approach I now prefer.
+
+This solution is inspired by RTK Query's tag-based cache invalidation model (`providesTags` / `invalidatesTags`): https://redux-toolkit.js.org/tutorials/rtk-query
+
+## The Better Pattern: Tag-Based Invalidation in One Place
+
+Your approach is to attach tags to queries, then invalidate by tags in a single global mutation success handler.
+
+That means:
+
+- queries declare what data domains they belong to
+- mutations declare what domains they change
+- invalidation is centralized in `QueryClient` setup
+
+This avoids scattering `invalidateQueries` calls across many components and hooks.
+
+## 1. Type-Safe Meta for Queries and Mutations
+
+```ts
+import { MutationCache, QueryClient } from "@tanstack/react-query";
+
+interface MyQueryMeta extends Record<string, unknown> {
+  /**
+   * Tags associated with the query for invalidation purposes
+   */
+  tags?: string[];
+}
+
+interface MyMutationMeta extends Record<string, unknown> {
+  /**
+   * Tags to invalidate upon successful mutation
+   */
+  invalidatesTags?: string[];
+}
+
+declare module "@tanstack/react-query" {
+  interface Register {
+    queryMeta: MyQueryMeta;
+    mutationMeta: MyMutationMeta;
+  }
+}
+```
+
+Now TypeScript understands `meta.tags` and `meta.invalidatesTags` everywhere.
+
+## 2. Find Queries by Tag
+
+```ts
+function findQueriesByTag<T extends string = string>(
+  tag: T,
+  queryClient: QueryClient
+) {
+  return queryClient.getQueryCache().findAll({
+    predicate: (q) => Array.isArray(q.meta?.tags) && q.meta.tags.includes(tag),
+  });
+}
+```
+
+This gives you a generic mapping from domain tag to actual query keys.
+
+## 3. Global Mutation Success Invalidation
+
+```ts
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      // do not retry on error
+      retry: false,
+    },
+    mutations: {
+      // do not retry on error
+      retry: false,
+    },
+  },
+  mutationCache: new MutationCache({
+    onSuccess: (_data, _variables, _result, context) => {
+      const invalidatesTags = context.meta?.invalidatesTags;
+      if (!invalidatesTags || !Array.isArray(invalidatesTags)) {
+        return;
+      }
+      invalidatesTags.forEach((invalidatesTag) => {
+        findQueriesByTag(invalidatesTag, queryClient).forEach((q) => {
+          queryClient.invalidateQueries({
+            queryKey: q.queryKey,
+            type: "active",
+          });
+        });
+      });
+    },
+  }),
+});
+```
+
+The key win: every successful mutation automatically invalidates the right queries, as long as tags are declared.
+
+## 4. Usage Example
+
+A query declares what it belongs to:
+
+```ts
+useQuery({
+  queryKey: ["todos", "list"],
+  queryFn: fetchTodos,
+  meta: { tags: ["todos"] },
+});
+```
+
+A mutation declares what it changes:
+
+```ts
+useMutation({
+  mutationFn: createTodo,
+  meta: { invalidatesTags: ["todos"] },
+});
+```
+
+No local `onSuccess` invalidation is needed in most cases.
+
+## Why This Scales Better
+
+- One invalidation mechanism for the whole app.
+- Fewer copy-pasted `onSuccess` handlers.
+- Cleaner component and hook code.
+- Easy to reason about: query tags in, mutation tags out.
+
+## Practical Caveats
+
+- `type: "active"` only refetches active observers. Inactive queries are marked stale and will refetch when mounted.
+- Tag names are string-based, so team conventions matter to avoid typos.
+- For very specific updates, combine this with `setQueryData` for instant cache writes.
+
+## Final Thoughts
+
+This pattern is a strong middle ground between broad key invalidation and fully manual cache updates. You keep the convenience of automatic refetching while making invalidation rules explicit and centralized.
